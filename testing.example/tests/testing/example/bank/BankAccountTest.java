@@ -7,8 +7,11 @@ import org.junit.Test;
 public class BankAccountTest {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testIdIsAutomaticallyAssignedAsPositiveNumber() {
+		// setup
+		BankAccount bankAccount = new BankAccount();
+		// verify
+		assertTrue("Id should be positive", bankAccount.getId() > 0);
 	}
 
 }
