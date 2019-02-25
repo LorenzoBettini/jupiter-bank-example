@@ -13,6 +13,10 @@ import org.junit.rules.ExpectedException;
 
 public class BankTest {
 
+	private static final int AMOUNT = 5;
+
+	private static final int INITIAL_BALANCE = 10;
+
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
@@ -38,36 +42,36 @@ public class BankTest {
 	public void testDepositWhenAccountIsNotFoundShouldThrow() {
 		thrown.expect(NoSuchElementException.class);
 		thrown.expectMessage("No account found with id: 1");
-		bank.deposit(1, 10);
+		bank.deposit(1, INITIAL_BALANCE);
 	}
 
 	@Test
-	public void testDepositWhenAccountIsFoundShouldShouldIncrementBalance() {
+	public void testDepositWhenAccountIsFoundShouldIncrementBalance() {
 		// setup
-		BankAccount testAccount = createTestAccount(10);
+		BankAccount testAccount = createTestAccount(INITIAL_BALANCE);
 		bankAccounts.add(testAccount);
 		// exercise
-		bank.deposit(testAccount.getId(), 5);
+		bank.deposit(testAccount.getId(), AMOUNT);
 		// verify
-		assertEquals(15, testAccount.getBalance(), 0);
+		assertEquals(INITIAL_BALANCE+AMOUNT, testAccount.getBalance(), 0);
 	}
 
 	@Test
 	public void testWithdrawWhenAccountIsNotFoundShouldThrow() {
 		thrown.expect(NoSuchElementException.class);
 		thrown.expectMessage("No account found with id: 1");
-		bank.withdraw(1, 10);
+		bank.withdraw(1, AMOUNT);
 	}
 
 	@Test
 	public void testWithdrawWhenAccountIsFoundShouldDecrementBalance() {
 		// setup
-		BankAccount testAccount = createTestAccount(10);
+		BankAccount testAccount = createTestAccount(INITIAL_BALANCE);
 		bankAccounts.add(testAccount);
 		// exercise
-		bank.withdraw(testAccount.getId(), 5);
+		bank.withdraw(testAccount.getId(), AMOUNT);
 		// verify
-		assertEquals(5, testAccount.getBalance(), 0);
+		assertEquals(INITIAL_BALANCE-AMOUNT, testAccount.getBalance(), 0);
 	}
 
 	/**
