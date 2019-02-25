@@ -2,6 +2,7 @@ package testing.example.bank;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -22,8 +23,8 @@ public class BankTest {
 
 	@Before
 	public void setup() {
-		bank = new Bank();
-		bankAccounts = bank.getBankAccounts();
+		bankAccounts = new ArrayList<BankAccount>();
+		bank = new Bank(bankAccounts);
 	}
 
 	@Test

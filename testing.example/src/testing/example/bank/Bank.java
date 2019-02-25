@@ -1,18 +1,14 @@
 package testing.example.bank;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.NoSuchElementException;
 
 public class Bank {
 
-	private List<BankAccount> bankAccounts = new ArrayList<>();
+	private Collection<BankAccount> bankAccounts;
 
-	/**
-	 * Package-private, for internal use only, for example, for testing.
-	 */
-	List<BankAccount> getBankAccounts() {
-		return bankAccounts;
+	public Bank(Collection<BankAccount> bankAccounts) {
+		this.bankAccounts = bankAccounts;
 	}
 
 	public int openNewBankAccount(double initialBalance) {
