@@ -14,4 +14,9 @@ public class BankAccountTest {
 		assertTrue("Id should be positive", bankAccount.getId() > 0);
 	}
 
+	@Test
+	public void testIdsAreIncremental() {
+		assertTrue("Ids should be incremental",
+			new BankAccount().getId() < new BankAccount().getId());
+	}
 }
