@@ -22,9 +22,9 @@ public class BankAccountTest {
 
 	// WRONG VERSION!
 	// Works only if this is the first executed test
-	@Test
-	public void testIdsAreIncrementalWrong() {
-		assertEquals(1, new BankAccount().getId());
-		assertEquals(2, new BankAccount().getId());
-	}
+//	@Test
+//	public void testIdsAreIncrementalWrong() {
+//		assertEquals(1, new BankAccount().getId());
+//		assertEquals(2, new BankAccount().getId());
+//	}
 }
