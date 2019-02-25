@@ -37,4 +37,19 @@ public class BankAccountTest {
 		// verify
 		assertEquals(10, bankAccount.getBalance(), 0);
 	}
+
+	@Test
+	public void testDepositWhenAmountIsNegativeShouldThrow() {
+		// setup
+		BankAccount bankAccount = new BankAccount();
+		try {
+			// exercise
+			bankAccount.deposit(-1);
+			fail("Expected an IllegalArgumentException to be thrown");
+		} catch (IllegalArgumentException e) {
+			// verify
+			assertEquals("Negative amount: -1", e.getMessage());
+			assertEquals(0, bankAccount.getBalance(), 0);
+		}
+	}
 }
