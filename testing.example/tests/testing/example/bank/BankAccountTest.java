@@ -2,9 +2,14 @@ package testing.example.bank;
 
 import static org.junit.Assert.*;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class BankAccountTest {
+
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
 	public void testIdIsAutomaticallyAssignedAsPositiveNumber() {
@@ -57,5 +62,14 @@ public class BankAccountTest {
 	public void testDepositWhenAmountIsNegativeShouldThrowWithExpected() {
 		BankAccount bankAccount = new BankAccount();
 		bankAccount.deposit(-1);
+	}
+
+	@Test
+	public void testDepositWhenAmountIsNegativeShouldThrowAlternative() {
+		BankAccount bankAccount = new BankAccount();
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Negative amount: -1.0");
+		bankAccount.deposit(-1);
+		// but we can't perform further assertions...
 	}
 }
