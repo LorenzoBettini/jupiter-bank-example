@@ -27,4 +27,14 @@ public class BankAccountTest {
 //		assertEquals(1, new BankAccount().getId());
 //		assertEquals(2, new BankAccount().getId());
 //	}
+
+	@Test
+	public void testDepositWhenAmountIsCorrectShouldIncreaseBalance() {
+		// setup
+		BankAccount bankAccount = new BankAccount();
+		// exercise
+		bankAccount.deposit(10);
+		// verify
+		assertEquals(10, bankAccount.getBalance(), 0);
+	}
 }
