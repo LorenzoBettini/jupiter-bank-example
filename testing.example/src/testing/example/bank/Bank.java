@@ -8,6 +8,13 @@ public class Bank {
 
 	private List<BankAccount> bankAccounts = new ArrayList<>();
 
+	/**
+	 * Package-private, for internal use only, for example, for testing.
+	 */
+	List<BankAccount> getBankAccounts() {
+		return bankAccounts;
+	}
+
 	public int openNewBankAccount(double initialBalance) {
 		BankAccount newBankAccount = new BankAccount();
 		newBankAccount.setBalance(initialBalance);
