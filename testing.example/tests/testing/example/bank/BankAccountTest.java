@@ -19,4 +19,12 @@ public class BankAccountTest {
 		assertTrue("Ids should be incremental",
 			new BankAccount().getId() < new BankAccount().getId());
 	}
+
+	// WRONG VERSION!
+	// Works only if this is the first executed test
+	@Test
+	public void testIdsAreIncrementalWrong() {
+		assertEquals(1, new BankAccount().getId());
+		assertEquals(2, new BankAccount().getId());
+	}
 }
