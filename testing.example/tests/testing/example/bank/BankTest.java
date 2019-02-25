@@ -2,6 +2,7 @@ package testing.example.bank;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.junit.Before;
@@ -16,15 +17,20 @@ public class BankTest {
 
 	private Bank bank;
 
+	// the collaborator of Bank that we manually instrument and inspect
+	private List<BankAccount> bankAccounts;
+
 	@Before
 	public void setup() {
 		bank = new Bank();
+		bankAccounts = bank.getBankAccounts();
 	}
 
 	@Test
-	public void testOpenNewAccountShouldReturnAPositiveId() {
+	public void testOpenNewAccountShouldReturnAPositiveIdAndStoreTheAccount() {
 		int newAccountId = bank.openNewBankAccount(0);
 		assertTrue("Unexpected non positive id: " + newAccountId, newAccountId > 0);
+		assertEquals(newAccountId, bankAccounts.get(0).getId());
 	}
 
 	@Test
@@ -35,9 +41,14 @@ public class BankTest {
 	}
 
 	@Test
-	public void testDepositWhenAccountIsFoundShouldNotThrow() {
-		int newAccountId = bank.openNewBankAccount(10);
-		bank.deposit(newAccountId, 5);
+	public void testDepositWhenAccountIsFoundShouldShouldIncrementBalance() {
+		// setup
+		BankAccount testAccount = createTestAccount(10);
+		bankAccounts.add(testAccount);
+		// exercise
+		bank.deposit(testAccount.getId(), 5);
+		// verify
+		assertEquals(15, testAccount.getBalance(), 0);
 	}
 
 	@Test
@@ -48,8 +59,22 @@ public class BankTest {
 	}
 
 	@Test
-	public void testWithdrawWhenAccountIsFoundShouldNotThrow() {
-		int newAccountId = bank.openNewBankAccount(10);
-		bank.withdraw(newAccountId, 5);
+	public void testWithdrawWhenAccountIsFoundShouldDecrementBalance() {
+		// setup
+		BankAccount testAccount = createTestAccount(10);
+		bankAccounts.add(testAccount);
+		// exercise
+		bank.withdraw(testAccount.getId(), 5);
+		// verify
+		assertEquals(5, testAccount.getBalance(), 0);
+	}
+
+	/**
+	 * Utility method for creating a BankAccount for testing.
+	 */
+	private BankAccount createTestAccount(double initialBalance) {
+		BankAccount bankAccount = new BankAccount();
+		bankAccount.setBalance(initialBalance);
+		return bankAccount;
 	}
 }
