@@ -11,6 +11,10 @@ public class BankAccountTest {
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
+	private static final int AMOUNT = 3;
+
+	private static final int INITIAL_BALANCE = 10;
+
 	@Test
 	public void testIdIsAutomaticallyAssignedAsPositiveNumber() {
 		// setup
@@ -37,11 +41,11 @@ public class BankAccountTest {
 	public void testDepositWhenAmountIsCorrectShouldIncreaseBalance() {
 		// setup
 		BankAccount bankAccount = new BankAccount();
-		bankAccount.setBalance(5);
+		bankAccount.setBalance(INITIAL_BALANCE);
 		// exercise
-		bankAccount.deposit(10);
+		bankAccount.deposit(AMOUNT);
 		// verify
-		assertEquals(15, bankAccount.getBalance(), 0);
+		assertEquals(INITIAL_BALANCE+AMOUNT, bankAccount.getBalance(), 0);
 	}
 
 	@Test
@@ -107,10 +111,10 @@ public class BankAccountTest {
 	public void testWithdrawWhenBalanceIsSufficientShouldDecreaseBalance() {
 		// setup
 		BankAccount bankAccount = new BankAccount();
-		bankAccount.setBalance(10);
+		bankAccount.setBalance(INITIAL_BALANCE);
 		// exercise
-		bankAccount.withdraw(3); // the method we want to test
+		bankAccount.withdraw(AMOUNT); // the method we want to test
 		// verify
-		assertEquals(7, bankAccount.getBalance(), 0);
+		assertEquals(INITIAL_BALANCE-AMOUNT, bankAccount.getBalance(), 0);
 	}
 }
