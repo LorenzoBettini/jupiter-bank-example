@@ -52,4 +52,10 @@ public class BankAccountTest {
 			assertEquals(0, bankAccount.getBalance(), 0);
 		}
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDepositWhenAmountIsNegativeShouldThrowWithExpected() {
+		BankAccount bankAccount = new BankAccount();
+		bankAccount.deposit(-1);
+	}
 }
