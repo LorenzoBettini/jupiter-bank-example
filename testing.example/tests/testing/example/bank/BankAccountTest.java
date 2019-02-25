@@ -48,7 +48,7 @@ public class BankAccountTest {
 			fail("Expected an IllegalArgumentException to be thrown");
 		} catch (IllegalArgumentException e) {
 			// verify
-			assertEquals("Negative amount: -1", e.getMessage());
+			assertEquals("Negative amount: -1.0", e.getMessage());
 			assertEquals(0, bankAccount.getBalance(), 0);
 		}
 	}
