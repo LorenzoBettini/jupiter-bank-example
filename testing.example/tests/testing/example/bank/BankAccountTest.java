@@ -2,6 +2,8 @@ package testing.example.bank;
 
 import static org.junit.Assert.*;
 
+import java.util.function.ObjDoubleConsumer;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -94,6 +96,24 @@ public class BankAccountTest {
 		BankAccount bankAccount = new BankAccount();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
 			() -> bankAccount.withdraw(-1));
+		assertEquals("Negative amount: -1.0", e.getMessage());
+		assertEquals(0, bankAccount.getBalance(), 0);
+	}
+
+	@Test
+	public void testDepositWhenAmountIsNegativeShouldThrowRefactored() {
+		assertActionWithNegativeAmount(BankAccount::deposit);
+	}
+
+	@Test
+	public void testWithdrawWhenAmountIsNegativeShouldThrowRefactored() {
+		assertActionWithNegativeAmount(BankAccount::withdraw);
+	}
+
+	private void assertActionWithNegativeAmount(ObjDoubleConsumer<BankAccount> code) {
+		BankAccount bankAccount = new BankAccount();
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+			() -> code.accept(bankAccount, -1.0));
 		assertEquals("Negative amount: -1.0", e.getMessage());
 		assertEquals(0, bankAccount.getBalance(), 0);
 	}
