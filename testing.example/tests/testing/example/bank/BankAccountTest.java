@@ -65,11 +65,22 @@ public class BankAccountTest {
 	}
 
 	@Test
-	public void testDepositWhenAmountIsNegativeShouldThrowAlternative() {
+	public void testDepositWhenAmountIsNegativeShouldThrowWithExpectedException() {
 		BankAccount bankAccount = new BankAccount();
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Negative amount: -1.0");
 		bankAccount.deposit(-1);
 		// but we can't perform further assertions...
+	}
+
+	@Test
+	public void testDepositWhenAmountIsNegativeShouldThrowWithAssertThrows() {
+		BankAccount bankAccount = new BankAccount();
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+			() -> bankAccount.deposit(-1));
+		// perform assertions on the thrown exception
+		assertEquals("Negative amount: -1.0", e.getMessage());
+		// and we can perform further assertions...
+		assertEquals(0, bankAccount.getBalance(), 0);
 	}
 }
