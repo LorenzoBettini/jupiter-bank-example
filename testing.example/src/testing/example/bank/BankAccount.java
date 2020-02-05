@@ -28,20 +28,22 @@ public class BankAccount {
 	}
 
 	public void deposit(double amount) {
-		if (amount < 0) {
-			throw new IllegalArgumentException("Negative amount: " + amount);
-		}
+		handleNegativeAmount(amount);
 		balance += amount;
 	}
 
 	public void withdraw(double amount) {
-		if (amount < 0) {
-			throw new IllegalArgumentException("Negative amount: " + amount);
-		}
+		handleNegativeAmount(amount);
 		if (balance - amount < 0) {
 			throw new IllegalArgumentException
 				("Cannot withdraw " + amount + " from " + balance);
 		}
 		balance -= amount;
+	}
+
+	private void handleNegativeAmount(double amount) {
+		if (amount < 0) {
+			throw new IllegalArgumentException("Negative amount: " + amount);
+		}
 	}
 }
