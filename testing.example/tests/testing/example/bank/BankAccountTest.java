@@ -37,10 +37,11 @@ public class BankAccountTest {
 	public void testDepositWhenAmountIsCorrectShouldIncreaseBalance() {
 		// setup
 		BankAccount bankAccount = new BankAccount();
+		bankAccount.setBalance(5);
 		// exercise
 		bankAccount.deposit(10);
 		// verify
-		assertEquals(10, bankAccount.getBalance(), 0);
+		assertEquals(15, bankAccount.getBalance(), 0);
 	}
 
 	@Test
