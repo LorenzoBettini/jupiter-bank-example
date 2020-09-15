@@ -7,18 +7,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class BankTest {
 
-	private static final int AMOUNT = 5;
+	private static final double AMOUNT = 5;
 
-	private static final int INITIAL_BALANCE = 10;
-
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+	private static final double INITIAL_BALANCE = 10;
 
 	private Bank bank;
 
@@ -27,7 +22,7 @@ public class BankTest {
 
 	@Before
 	public void setup() {
-		bankAccounts = new ArrayList<BankAccount>();
+		bankAccounts = new ArrayList<>();
 		bank = new Bank(bankAccounts);
 	}
 
@@ -38,10 +33,8 @@ public class BankTest {
 		assertEquals(newAccountId, bankAccounts.get(0).getId());
 	}
 
-	@Test
+	@Test(expected = NoSuchElementException.class)
 	public void testDepositWhenAccountIsNotFoundShouldThrow() {
-		thrown.expect(NoSuchElementException.class);
-		thrown.expectMessage("No account found with id: 1");
 		bank.deposit(1, INITIAL_BALANCE);
 	}
 
@@ -56,10 +49,8 @@ public class BankTest {
 		assertEquals(INITIAL_BALANCE+AMOUNT, testAccount.getBalance(), 0);
 	}
 
-	@Test
+	@Test(expected = NoSuchElementException.class)
 	public void testWithdrawWhenAccountIsNotFoundShouldThrow() {
-		thrown.expect(NoSuchElementException.class);
-		thrown.expectMessage("No account found with id: 1");
 		bank.withdraw(1, AMOUNT);
 	}
 

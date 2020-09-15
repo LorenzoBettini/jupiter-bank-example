@@ -2,18 +2,13 @@ package testing.example.bank;
 
 import static org.junit.Assert.*;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class BankAccountTest {
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+	private static final double AMOUNT = 3;
 
-	private static final int AMOUNT = 3;
-
-	private static final int INITIAL_BALANCE = 10;
+	private static final double INITIAL_BALANCE = 10;
 
 	@Test
 	public void testIdIsAutomaticallyAssignedAsPositiveNumber() {
@@ -25,17 +20,11 @@ public class BankAccountTest {
 
 	@Test
 	public void testIdsAreIncremental() {
+		BankAccount firstAccount = new BankAccount();
+		BankAccount secondAccount = new BankAccount();
 		assertTrue("Ids should be incremental",
-			new BankAccount().getId() < new BankAccount().getId());
+			firstAccount.getId() < secondAccount.getId());
 	}
-
-	// WRONG VERSION!
-	// Works only if this is the first executed test
-//	@Test
-//	public void testIdsAreIncrementalWrong() {
-//		assertEquals(1, new BankAccount().getId());
-//		assertEquals(2, new BankAccount().getId());
-//	}
 
 	@Test
 	public void testDepositWhenAmountIsCorrectShouldIncreaseBalance() {
@@ -50,36 +39,6 @@ public class BankAccountTest {
 
 	@Test
 	public void testDepositWhenAmountIsNegativeShouldThrow() {
-		// setup
-		BankAccount bankAccount = new BankAccount();
-		try {
-			// exercise
-			bankAccount.deposit(-1);
-			fail("Expected an IllegalArgumentException to be thrown");
-		} catch (IllegalArgumentException e) {
-			// verify
-			assertEquals("Negative amount: -1.0", e.getMessage());
-			assertEquals(0, bankAccount.getBalance(), 0);
-		}
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testDepositWhenAmountIsNegativeShouldThrowWithExpected() {
-		BankAccount bankAccount = new BankAccount();
-		bankAccount.deposit(-1);
-	}
-
-	@Test
-	public void testDepositWhenAmountIsNegativeShouldThrowWithExpectedException() {
-		BankAccount bankAccount = new BankAccount();
-		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Negative amount: -1.0");
-		bankAccount.deposit(-1);
-		// but we can't perform further assertions...
-	}
-
-	@Test
-	public void testDepositWhenAmountIsNegativeShouldThrowWithAssertThrows() {
 		BankAccount bankAccount = new BankAccount();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
 			() -> bankAccount.deposit(-1));
