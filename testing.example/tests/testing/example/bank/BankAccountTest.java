@@ -4,14 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-public class BankAccountTest {
+class BankAccountTest {
 
 	private static final double AMOUNT = 3;
 
 	private static final double INITIAL_BALANCE = 10;
 
 	@Test
-	public void testIdIsAutomaticallyAssignedAsPositiveNumber() {
+	void testIdIsAutomaticallyAssignedAsPositiveNumber() {
 		// setup
 		BankAccount bankAccount = new BankAccount();
 		// verify
@@ -19,7 +19,7 @@ public class BankAccountTest {
 	}
 
 	@Test
-	public void testIdsAreIncremental() {
+	void testIdsAreIncremental() {
 		BankAccount firstAccount = new BankAccount();
 		BankAccount secondAccount = new BankAccount();
 		assertTrue(firstAccount.getId() < secondAccount.getId(),
@@ -27,7 +27,7 @@ public class BankAccountTest {
 	}
 
 	@Test
-	public void testDepositWhenAmountIsCorrectShouldIncreaseBalance() {
+	void testDepositWhenAmountIsCorrectShouldIncreaseBalance() {
 		// setup
 		BankAccount bankAccount = new BankAccount();
 		bankAccount.setBalance(INITIAL_BALANCE);
@@ -38,7 +38,7 @@ public class BankAccountTest {
 	}
 
 	@Test
-	public void testDepositWhenAmountIsNegativeShouldThrow() {
+	void testDepositWhenAmountIsNegativeShouldThrow() {
 		BankAccount bankAccount = new BankAccount();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
 			() -> bankAccount.deposit(-1));
@@ -49,7 +49,7 @@ public class BankAccountTest {
 	}
 
 	@Test
-	public void testWithdrawWhenAmountIsNegativeShouldThrow() {
+	void testWithdrawWhenAmountIsNegativeShouldThrow() {
 		BankAccount bankAccount = new BankAccount();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
 			() -> bankAccount.withdraw(-1));
@@ -58,7 +58,7 @@ public class BankAccountTest {
 	}
 
 	@Test
-	public void testWithdrawWhenBalanceIsUnsufficientShouldThrow() {
+	void testWithdrawWhenBalanceIsUnsufficientShouldThrow() {
 		BankAccount bankAccount = new BankAccount();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
 			() -> bankAccount.withdraw(10));
@@ -67,7 +67,7 @@ public class BankAccountTest {
 	}
 
 	@Test
-	public void testWithdrawWhenBalanceIsSufficientShouldDecreaseBalance() {
+	void testWithdrawWhenBalanceIsSufficientShouldDecreaseBalance() {
 		// setup
 		BankAccount bankAccount = new BankAccount();
 		bankAccount.setBalance(INITIAL_BALANCE);
