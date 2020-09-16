@@ -1,13 +1,13 @@
 package testing.example.bank;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BankTest {
 
@@ -20,7 +20,7 @@ public class BankTest {
 	// the collaborator of Bank that we manually instrument and inspect
 	private List<BankAccount> bankAccounts;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		bankAccounts = new ArrayList<>();
 		bank = new Bank(bankAccounts);
@@ -29,13 +29,14 @@ public class BankTest {
 	@Test
 	public void testOpenNewAccountShouldReturnAPositiveIdAndStoreTheAccount() {
 		int newAccountId = bank.openNewBankAccount(0);
-		assertTrue("Unexpected non positive id: " + newAccountId, newAccountId > 0);
+		assertTrue(newAccountId > 0, "Unexpected non positive id: " + newAccountId);
 		assertEquals(newAccountId, bankAccounts.get(0).getId());
 	}
 
-	@Test(expected = NoSuchElementException.class)
+	@Test
 	public void testDepositWhenAccountIsNotFoundShouldThrow() {
-		bank.deposit(1, INITIAL_BALANCE);
+		assertThrows(NoSuchElementException.class,
+			() -> bank.deposit(1, INITIAL_BALANCE));
 	}
 
 	@Test
@@ -49,9 +50,10 @@ public class BankTest {
 		assertEquals(INITIAL_BALANCE+AMOUNT, testAccount.getBalance(), 0);
 	}
 
-	@Test(expected = NoSuchElementException.class)
+	@Test
 	public void testWithdrawWhenAccountIsNotFoundShouldThrow() {
-		bank.withdraw(1, AMOUNT);
+		assertThrows(NoSuchElementException.class,
+			() -> bank.withdraw(1, AMOUNT));
 	}
 
 	@Test
