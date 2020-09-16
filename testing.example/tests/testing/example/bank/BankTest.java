@@ -29,8 +29,10 @@ class BankTest {
 	@Test
 	void testOpenNewAccountShouldReturnAPositiveIdAndStoreTheAccount() {
 		int newAccountId = bank.openNewBankAccount(0);
-		assertTrue(newAccountId > 0, "Unexpected non positive id: " + newAccountId);
-		assertEquals(newAccountId, bankAccounts.get(0).getId());
+		assertAll(
+			() -> assertTrue(newAccountId > 0, "Unexpected non positive id: " + newAccountId),
+			() -> assertEquals(newAccountId, bankAccounts.get(0).getId())
+		);
 	}
 
 	@Test

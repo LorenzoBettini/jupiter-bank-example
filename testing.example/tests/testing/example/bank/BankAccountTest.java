@@ -45,10 +45,10 @@ class BankAccountTest {
 		BankAccount bankAccount = new BankAccount();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
 			() -> bankAccount.deposit(-1));
-		// perform assertions on the thrown exception
-		assertEquals("Negative amount: -1.0", e.getMessage());
-		// and we can perform further assertions...
-		assertEquals(0, bankAccount.getBalance(), 0);
+		assertAll(
+			() -> assertEquals("Negative amount: -1.0", e.getMessage()),
+			() -> assertEquals(0, bankAccount.getBalance(), 0)
+		);
 	}
 
 	@Test
@@ -56,8 +56,10 @@ class BankAccountTest {
 		BankAccount bankAccount = new BankAccount();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
 			() -> bankAccount.withdraw(-1));
-		assertEquals("Negative amount: -1.0", e.getMessage());
-		assertEquals(0, bankAccount.getBalance(), 0);
+		assertAll(
+			() -> assertEquals("Negative amount: -1.0", e.getMessage()),
+			() -> assertEquals(0, bankAccount.getBalance(), 0)
+		);
 	}
 
 	@Test
@@ -65,8 +67,10 @@ class BankAccountTest {
 		BankAccount bankAccount = new BankAccount();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
 			() -> bankAccount.withdraw(10));
-		assertEquals("Cannot withdraw 10.0 from 0.0", e.getMessage());
-		assertEquals(0, bankAccount.getBalance(), 0);
+		assertAll(
+			() -> assertEquals("Cannot withdraw 10.0 from 0.0", e.getMessage()),
+			() -> assertEquals(0, bankAccount.getBalance(), 0)
+		);
 	}
 
 	@Test
