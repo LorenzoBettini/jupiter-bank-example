@@ -23,7 +23,10 @@ class BankAccountTest {
 		BankAccount firstAccount = new BankAccount();
 		BankAccount secondAccount = new BankAccount();
 		assertTrue(firstAccount.getId() < secondAccount.getId(),
-			"Ids should be incremental");
+			() -> 
+				"Ids were expected to be incremental, but" +
+				firstAccount.getId() + " is not less than " +
+				secondAccount.getId());
 	}
 
 	@Test
