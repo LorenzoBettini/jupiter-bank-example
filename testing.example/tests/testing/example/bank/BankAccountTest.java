@@ -1,8 +1,8 @@
 package testing.example.bank;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
 
@@ -15,15 +15,15 @@ public class BankAccountTest {
 		// setup
 		BankAccount bankAccount = new BankAccount();
 		// verify
-		assertTrue("Id should be positive", bankAccount.getId() > 0);
+		assertTrue(bankAccount.getId() > 0, "Id should be positive");
 	}
 
 	@Test
 	public void testIdsAreIncremental() {
 		BankAccount firstAccount = new BankAccount();
 		BankAccount secondAccount = new BankAccount();
-		assertTrue("Ids should be incremental",
-			firstAccount.getId() < secondAccount.getId());
+		assertTrue(firstAccount.getId() < secondAccount.getId(),
+			"Ids should be incremental");
 	}
 
 	@Test
