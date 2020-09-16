@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BankTest {
+class BankTest {
 
 	private static final double AMOUNT = 5;
 
@@ -21,26 +21,26 @@ public class BankTest {
 	private List<BankAccount> bankAccounts;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		bankAccounts = new ArrayList<>();
 		bank = new Bank(bankAccounts);
 	}
 
 	@Test
-	public void testOpenNewAccountShouldReturnAPositiveIdAndStoreTheAccount() {
+	void testOpenNewAccountShouldReturnAPositiveIdAndStoreTheAccount() {
 		int newAccountId = bank.openNewBankAccount(0);
 		assertTrue(newAccountId > 0, "Unexpected non positive id: " + newAccountId);
 		assertEquals(newAccountId, bankAccounts.get(0).getId());
 	}
 
 	@Test
-	public void testDepositWhenAccountIsNotFoundShouldThrow() {
+	void testDepositWhenAccountIsNotFoundShouldThrow() {
 		assertThrows(NoSuchElementException.class,
 			() -> bank.deposit(1, INITIAL_BALANCE));
 	}
 
 	@Test
-	public void testDepositWhenAccountIsFoundShouldIncrementBalance() {
+	void testDepositWhenAccountIsFoundShouldIncrementBalance() {
 		// setup
 		BankAccount testAccount = createTestAccount(INITIAL_BALANCE);
 		bankAccounts.add(testAccount);
@@ -51,13 +51,13 @@ public class BankTest {
 	}
 
 	@Test
-	public void testWithdrawWhenAccountIsNotFoundShouldThrow() {
+	void testWithdrawWhenAccountIsNotFoundShouldThrow() {
 		assertThrows(NoSuchElementException.class,
 			() -> bank.withdraw(1, AMOUNT));
 	}
 
 	@Test
-	public void testWithdrawWhenAccountIsFoundShouldDecrementBalance() {
+	void testWithdrawWhenAccountIsFoundShouldDecrementBalance() {
 		// setup
 		BankAccount testAccount = createTestAccount(INITIAL_BALANCE);
 		bankAccounts.add(testAccount);
