@@ -2,8 +2,10 @@ package testing.example.bank;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Tests for BankAccount")
 class BankAccountTest {
 
 	private static final double AMOUNT = 3;
@@ -11,6 +13,7 @@ class BankAccountTest {
 	private static final double INITIAL_BALANCE = 10;
 
 	@Test
+	@DisplayName("A positive number is automatically assigned as id")
 	void testIdIsAutomaticallyAssignedAsPositiveNumber() {
 		// setup
 		BankAccount bankAccount = new BankAccount();
@@ -19,6 +22,7 @@ class BankAccountTest {
 	}
 
 	@Test
+	@DisplayName("Ids are incremental")
 	void testIdsAreIncremental() {
 		BankAccount firstAccount = new BankAccount();
 		BankAccount secondAccount = new BankAccount();
